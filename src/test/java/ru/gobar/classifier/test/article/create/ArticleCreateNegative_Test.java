@@ -37,10 +37,8 @@ public class ArticleCreateNegative_Test extends AbstractTest {
     @DisplayName("/article/create Неуспешное создание статьи с отсутствующими обязательными параметрами")
     void missAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
-        missSupplier().forEach(data -> {
-            stepper.runStep(data.keys, () -> client.post(RequestViolator.remove(data.keys, data.request)).
-                    assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY));
-        });
+        missSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.remove(data.keys, data.request)).
+                assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)));
         stepper.check();
     }
 
@@ -65,10 +63,8 @@ public class ArticleCreateNegative_Test extends AbstractTest {
     @DisplayName("/article/create Неуспешное создание статьи с некорректными параметрами")
     void wrongAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
-        wrongSupplier().forEach(data -> {
-            stepper.runStep(data.keys, () -> client.post(RequestViolator.replace(data.keys, data.request, data.value)).
-                    assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY));
-        });
+        wrongSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.replace(data.keys, data.request, data.value)).
+                assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)));
         stepper.check();
     }
 

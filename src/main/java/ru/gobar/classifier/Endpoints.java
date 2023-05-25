@@ -12,5 +12,5 @@ public class Endpoints {
     // endpoints
     public static final String ARTICLE_CREATE = "/article/create";
     public static final String ARTICLE_DELETE = "/article";
-    public static final String ARTICLE_GET = "/get";
+    public static final String ARTICLE_GET = "/article";
 }
