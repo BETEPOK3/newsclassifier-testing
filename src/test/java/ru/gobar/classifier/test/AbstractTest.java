@@ -6,5 +6,5 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith({AllureJunit5.class, SuiteWrapper.class})
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class AbstractTest {
+public abstract class AbstractTest {
 }

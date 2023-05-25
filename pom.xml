@@ -14,11 +14,11 @@
         <junit.version>5.9.2</junit.version>
         <jackson.version>2.13.2.2</jackson.version>
         <rest.assured.version>5.3.0</rest.assured.version>
-        <jooq.version>3.18.0</jooq.version>
+        <jooq.version>3.15.4</jooq.version>
         <aspectj.version>1.9.19</aspectj.version>
 
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
     </properties>
 
     <dependencies>
@@ -107,6 +107,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.13.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.awaitility</groupId>
             <artifactId>awaitility</artifactId>
             <version>4.2.0</version>
@@ -116,6 +122,17 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.23.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -129,14 +146,16 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
-                    <compilerArgs>--enable-preview</compilerArgs>
+                    <compilerArgs>
+                        <arg>--enable-preview</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.1</version>
+                <version>3.1.0</version>
                 <configuration>
                     <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
@@ -145,6 +164,16 @@
                         --enable-preview
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
+                    <systemProperties>
+                        <property>
+                            <name>junit.jupiter.extensions.autodetection.enabled</name>
+                            <value>true</value>
+                        </property>
+                        <property>
+                            <name>allure.results.directory</name>
+                            <value>${project.build.directory}/allure-results</value>
+                        </property>
+                    </systemProperties>
                     <properties>
                         <configurationParamters>
                             junit.jupiter.extensions.autodetection.enabled = true
@@ -153,7 +182,7 @@
                             junit.jupiter.execution.parallel.mode.default = same_thread
                             junit.jupiter.execution.parallel.mode.classes.default = same_thread
                             junit.jupiter.testclass.order.default = org.junit.jupiter.api.ClassOrderer$OrderAnnotation
-                            allure.results.directory = ${project.build.directory}/allure-results
+                            allure.results.directory = target/allure-results
                             allure.link.tms.pattern= TODO/{}
                         </configurationParamters>
                     </properties>
