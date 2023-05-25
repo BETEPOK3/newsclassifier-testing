@@ -13,7 +13,6 @@ import java.util.Set;
 @Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldNameConstants
 public class Article {
 
     @JsonProperty("article_id")
@@ -30,4 +29,13 @@ public class Article {
     private String text;
     private Set<Category> categories;
 
+    public enum Fields{
+        article_id,
+        article_title,
+        article_author,
+        article_keywords,
+        article_date,
+        article_text,
+        article_categories
+    }
 }

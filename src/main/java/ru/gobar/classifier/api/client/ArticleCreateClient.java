@@ -11,9 +11,9 @@ import ru.gobar.classifier.api.request.ArticleCreateRequest;
 import static io.restassured.RestAssured.given;
 import static ru.gobar.classifier.Endpoints.ARTICLE_CREATE;
 
-public class ArticleCreateClient {
+public class ArticleCreateClient extends AbstractClient {
 
-    public ValidatableResponse sendPost(Object request) {
+    private ValidatableResponse sendPost(Object request) {
         return Allure.step("POST " + ARTICLE_CREATE, () -> given()
                 .spec(specs())
                 .body(request)
@@ -27,12 +27,5 @@ public class ArticleCreateClient {
 
     public ValidatableResponse post(ArticleCreateRequest request) {
         return sendPost(request);
-    }
-
-    private RequestSpecification specs() {
-        return new RequestSpecBuilder()
-                .setAccept("application/json")
-                .setContentType(ContentType.JSON)
-                .build();
     }
 }
