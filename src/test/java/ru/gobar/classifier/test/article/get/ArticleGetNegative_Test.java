@@ -33,6 +33,7 @@ public class ArticleGetNegative_Test extends AbstractTest {
                 new TestData("null", Map.of(ArticleGetClient.PARAM, "null"), HttpStatus.SC_UNPROCESSABLE_ENTITY),
                 new TestData("Пустая строка", Map.of(ArticleGetClient.PARAM, ""), HttpStatus.SC_UNPROCESSABLE_ENTITY),
                 new TestData("Не существующий id", Map.of(ArticleGetClient.PARAM, notExist), HttpStatus.SC_BAD_REQUEST),
+                new TestData("Не существующий id", Map.of(ArticleGetClient.PARAM, -1), HttpStatus.SC_BAD_REQUEST),
                 new TestData("Без параметра", Map.of(), HttpStatus.SC_UNPROCESSABLE_ENTITY)
         );
     }
@@ -42,9 +43,7 @@ public class ArticleGetNegative_Test extends AbstractTest {
     @DisplayName("/article Неуспешное получение статьи - некорректный параметр")
     void testBase() {
         AllureStepUtil stepper = new AllureStepUtil();
-        supplier().forEach(data -> stepper.runStep(data.name, () -> {
-            client.get(data.params).assertThat().statusCode(data.status);
-        }));
+        supplier().forEach(data -> stepper.runStep(data.name, () -> client.get(data.params).assertThat().statusCode(data.status)));
         stepper.check();
     }
 
