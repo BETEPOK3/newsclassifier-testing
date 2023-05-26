@@ -15,7 +15,7 @@ import ru.gobar.classifier.model.Article;
 import ru.gobar.classifier.model.Category;
 import ru.gobar.classifier.test.AbstractTest;
 import ru.gobar.classifier.util.AllureStepUtil;
-import ru.gobar.classifier.util.ArticleCreationUtil;
+import ru.gobar.classifier.util.ArticleUtil;
 import ru.gobar.classifier.util.AssertUtil;
 
 import java.util.*;
@@ -58,7 +58,7 @@ public class ArticleListPositive_Test extends AbstractTest {
 
                 articles.forEach(a -> {
                     a.getCategories().add(cat);
-                    ArticleCreationUtil.createArticle(a);
+                    ArticleUtil.createArticle(a);
                 });
                 ArticleListResponse expected = ArticleListResponse.instance(articles);
                 articles.sort(v);
@@ -90,7 +90,7 @@ public class ArticleListPositive_Test extends AbstractTest {
 
             articles.forEach(a -> {
                 a.getCategories().add(cat);
-                ArticleCreationUtil.createArticle(a);
+                ArticleUtil.createArticle(a);
             });
             ArticleListResponse expected = ArticleListResponse.instance(articles);
 
@@ -129,7 +129,7 @@ public class ArticleListPositive_Test extends AbstractTest {
 
             articles.forEach(a -> {
                 a.setTitle(UUID.randomUUID() + inner + UUID.randomUUID());
-                ArticleCreationUtil.createArticle(a);
+                ArticleUtil.createArticle(a);
             });
             ArticleListResponse expected = ArticleListResponse.instance(articles);
 
@@ -155,7 +155,7 @@ public class ArticleListPositive_Test extends AbstractTest {
 
             articles.forEach(a -> {
                 a.getCategories().add(cat);
-                ArticleCreationUtil.createArticle(a);
+                ArticleUtil.createArticle(a);
             });
             articles.sort(Comparator.comparing(Article::getTitle));
 

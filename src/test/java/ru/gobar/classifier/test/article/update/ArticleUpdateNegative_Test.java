@@ -1,29 +1,59 @@
-package ru.gobar.classifier.test.article.create;
+package ru.gobar.classifier.test.article.update;
 
 import io.qameta.allure.TmsLink;
 import org.apache.http.HttpStatus;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ru.gobar.classifier.api.client.ArticleCreateClient;
+import ru.gobar.classifier.api.client.ArticleUpdateClient;
 import ru.gobar.classifier.api.request.ArticleCreateRequest;
 import ru.gobar.classifier.data.RandomArticleGenerator;
+import ru.gobar.classifier.database.Databaser;
 import ru.gobar.classifier.model.Article;
 import ru.gobar.classifier.test.AbstractTest;
 import ru.gobar.classifier.util.AllureStepUtil;
+import ru.gobar.classifier.util.ArticleUtil;
 import ru.gobar.classifier.util.RequestViolator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.gobar.classifier.Endpoints.ARTICLE_CREATE;
+import static ru.gobar.classifier.Endpoints.ARTICLE_UPDATE;
 import static ru.gobar.classifier.data.Constants.WRONG_STRING;
 
-@DisplayName(ARTICLE_CREATE + " - создание статей")
-public class ArticleCreateNegative_Test extends AbstractTest {
+@DisplayName(ARTICLE_UPDATE + " - обновление статьи")
+public class ArticleUpdateNegative_Test extends AbstractTest {
 
+    private final ArticleUpdateClient client = new ArticleUpdateClient();
+
+    private int target;
     private final ArticleCreateRequest requestFull = ArticleCreateRequest.instance(
             RandomArticleGenerator.randomArticleWithAllFields());
-    private final ArticleCreateClient client = new ArticleCreateClient();
+
+    private int notExist;
+
+    @BeforeAll
+    void prepare() {
+        notExist = Databaser.getLastId() + 1;
+        target = ArticleUtil.createArticle(RandomArticleGenerator.randomArticleWithAllFields()).getId();
+    }
+
+    private List<TestData> supplier() {
+        return List.of(new TestData("Случайная строка", WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY),
+                new TestData("Пустая строка",  "", HttpStatus.SC_TEMPORARY_REDIRECT),
+                new TestData("Не существующий id", notExist, HttpStatus.SC_BAD_REQUEST),
+                new TestData("Не существующий id",  -1, HttpStatus.SC_BAD_REQUEST)
+        );
+    }
+
+    @Test
+    @TmsLink("https://www.hostedredmine.com/attachments/989554")
+    @DisplayName("[T29] /article/update Неуспешное получение статьи - некорректный параметр")
+    void testBase() {
+        AllureStepUtil stepper = new AllureStepUtil();
+        supplier().forEach(data -> stepper.runStep(data.name, () -> client.get(data.params).assertThat().statusCode(data.status)));
+        stepper.check();
+    }
 
     private List<TestData> missSupplier() {
         return List.of(new TestData(requestFull, Article.Fields.article_title.name()),
@@ -33,11 +63,11 @@ public class ArticleCreateNegative_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("https://www.hostedredmine.com/attachments/989189")
-    @DisplayName("[T1] /article/create Неуспешное создание статьи с отсутствующими обязательными параметрами")
+    @TmsLink("https://www.hostedredmine.com/attachments/989555")
+    @DisplayName("[T30] /article/update Неуспешное обновление статьи с отсутствующими обязательными параметрами")
     void missAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
-        missSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.remove(data.keys, data.request)).
+        missSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.remove(data.keys, data.request), target).
                 assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)));
         stepper.check();
     }
@@ -60,21 +90,30 @@ public class ArticleCreateNegative_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("https://www.hostedredmine.com/attachments/989188")
-    @DisplayName("[T2] /article/create Неуспешное создание статьи с некорректными параметрами")
+    @TmsLink("https://www.hostedredmine.com/attachments/989557")
+    @DisplayName("[T31] /article/update Неуспешное обновление статьи с некорректными параметрами")
     void wrongAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
-        wrongSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.replace(data.keys, data.request, data.value)).
+        wrongSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.replace(data.keys, data.request, data.value), target).
                 assertThat().statusCode(data.status)));
         stepper.check();
     }
 
-    private static class TestData {
+    private static class TestData{
 
-        private final ArticleCreateRequest request;
-        private final String keys;
-        private Object value;
+        private String name;
+        private Object params;
         private int status;
+
+        private ArticleCreateRequest request;
+        private String keys;
+        private Object value;
+
+        public TestData(String name, Object params, int status) {
+            this.name = name;
+            this.params = params;
+            this.status = status;
+        }
 
         public TestData(ArticleCreateRequest request, String keys) {
             this.request = request;
@@ -88,4 +127,5 @@ public class ArticleCreateNegative_Test extends AbstractTest {
             this.status = status;
         }
     }
+
 }

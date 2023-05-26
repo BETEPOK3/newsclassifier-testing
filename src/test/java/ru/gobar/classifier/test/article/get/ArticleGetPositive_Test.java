@@ -9,7 +9,7 @@ import ru.gobar.classifier.data.RandomArticleGenerator;
 import ru.gobar.classifier.model.Article;
 import ru.gobar.classifier.test.AbstractTest;
 import ru.gobar.classifier.util.AllureStepUtil;
-import ru.gobar.classifier.util.ArticleCreationUtil;
+import ru.gobar.classifier.util.ArticleUtil;
 import ru.gobar.classifier.util.AssertUtil;
 
 import java.util.Map;
@@ -23,9 +23,9 @@ public class ArticleGetPositive_Test extends AbstractTest {
 
     private Map<String, Article> getArticles() {
         return Map.of("Получение базовой статьи",
-                ArticleCreationUtil.createArticle(RandomArticleGenerator.randomArticleBase()),
+                ArticleUtil.createArticle(RandomArticleGenerator.randomArticleBase()),
                 "Получение статьи со всеми полями",
-                ArticleCreationUtil.createArticle(RandomArticleGenerator.randomArticleWithAllFields()));
+                ArticleUtil.createArticle(RandomArticleGenerator.randomArticleWithAllFields()));
     }
 
     @Test

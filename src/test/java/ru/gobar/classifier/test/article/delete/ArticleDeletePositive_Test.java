@@ -18,7 +18,7 @@ import ru.gobar.classifier.database.PostgresContext;
 import ru.gobar.classifier.model.Article;
 import ru.gobar.classifier.model.Category;
 import ru.gobar.classifier.test.AbstractTest;
-import ru.gobar.classifier.util.ArticleCreationUtil;
+import ru.gobar.classifier.util.ArticleUtil;
 import ru.gobar.classifier.util.AssertUtil;
 
 import java.util.Set;
@@ -35,7 +35,7 @@ public class ArticleDeletePositive_Test extends AbstractTest {
 
     @BeforeAll
     void prepare() {
-        article = ArticleCreationUtil.createArticle(RandomArticleGenerator.randomArticleWithAllFields());
+        article = ArticleUtil.createArticle(RandomArticleGenerator.randomArticleWithAllFields());
     }
 
     @Test

@@ -7,7 +7,7 @@ import ru.gobar.classifier.dao.PostgresArticleDao;
 import ru.gobar.classifier.data.RandomArticleGenerator;
 import ru.gobar.classifier.model.Article;
 import ru.gobar.classifier.test.AbstractTest;
-import ru.gobar.classifier.util.ArticleCreationUtil;
+import ru.gobar.classifier.util.ArticleUtil;
 import ru.gobar.classifier.util.AssertUtil;
 
 
@@ -24,7 +24,7 @@ public class ArticleCreatePositive_Test extends AbstractTest {
     void testBase() {
         Article art = RandomArticleGenerator.randomArticleBase();
         art.setKeywords(null);
-        ArticleCreationUtil.createArticle(art);
+        ArticleUtil.createArticle(art);
         art.setKeywords(new HashSet<>());
 
         Article actual = new PostgresArticleDao().getById(art.getId());
@@ -36,7 +36,7 @@ public class ArticleCreatePositive_Test extends AbstractTest {
     @DisplayName("[T4] /article/create Успешное создание статьи со всеми параметрами")
     void testFull() {
         Article art = RandomArticleGenerator.randomArticleWithAllFields();
-        ArticleCreationUtil.createArticle(art);
+        ArticleUtil.createArticle(art);
 
         Article actual = new PostgresArticleDao().getById(art.getId());
         AssertUtil.assertEquals(art, actual);

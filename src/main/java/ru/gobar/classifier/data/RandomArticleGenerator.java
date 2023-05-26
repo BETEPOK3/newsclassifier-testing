@@ -1,8 +1,6 @@
 package ru.gobar.classifier.data;
 
 import com.github.javafaker.Faker;
-import freemarker.ext.jsp.FreemarkerTag;
-import org.jooq.meta.derby.sys.Sys;
 import ru.gobar.classifier.model.Article;
 import ru.gobar.classifier.model.Category;
 
@@ -21,10 +19,10 @@ public class RandomArticleGenerator {
             keywords.add(faker.food().ingredient());
         }
 
-        int c = random.nextInt(4);
+        int c = random.nextInt(3) + 1;
         Set<Category> categories = new HashSet<>();
         for (int i = 0; i < c; ++i) {
-            categories.add(new Category().setName(faker.cat().breed()));
+            categories.add(new Category().setName(UUID.randomUUID().toString()));
         }
 
         return new Article()
@@ -39,10 +37,10 @@ public class RandomArticleGenerator {
     public static Article randomArticleBase() {
         Random random = new Random();
 
-        int c = random.nextInt(4);
+        int c = random.nextInt(3) + 1;
         Set<Category> categories = new HashSet<>();
         for (int i = 0; i < c; ++i) {
-            categories.add(new Category().setName(faker.cat().breed()));
+            categories.add(new Category().setName(UUID.randomUUID().toString()));
         }
 
         return new Article()
