@@ -26,7 +26,8 @@ import static ru.gobar.classifier.Endpoints.ARTICLE_LIST_ROOT;
 @DisplayName(ARTICLE_LIST_ROOT + " и " + ARTICLE_LIST_INDEX + " - получение списка статей")
 public class ArticleListPositive_Test extends AbstractTest {
 
-    private final int PAGE_SIZE = 2;
+    private final int PAGE_SIZE = 10;
+    private final int TOTAL = 12;
 
     private final ArticleListClient clientRoot = new ArticleListClient(ARTICLE_LIST_ROOT);
     private final ArticleListClient clientIndex = new ArticleListClient(ARTICLE_LIST_INDEX);
@@ -147,9 +148,10 @@ public class ArticleListPositive_Test extends AbstractTest {
         AllureStepUtil stepUtil = new AllureStepUtil();
         clients().forEach(c -> stepUtil.runStep(c.ENDPOINT, () -> {
             Category cat = categoryDao.persist(RandomCategoryGenerator.randomCategory());
-            List<Article> articles = new java.util.ArrayList<>(List.of(RandomArticleGenerator.randomArticleBase(),
-                    RandomArticleGenerator.randomArticleWithAllFields(),
-                    RandomArticleGenerator.randomArticleWithAllFields()));
+            List<Article> articles = new ArrayList<>();
+            for (int i = 0; i < TOTAL; ++i) {
+                articles.add(RandomArticleGenerator.randomArticleWithAllFields());
+            }
 
             articles.forEach(a -> {
                 a.getCategories().add(cat);
@@ -173,7 +175,6 @@ public class ArticleListPositive_Test extends AbstractTest {
                 ArticleListResponse expected = ArticleListResponse.instance(a);
                 expected.setCount(articles.size());
                 ArticleListResponse actual = c.get(Map.of(ArticleListClient.CATEGORY_PARAM, cat.getId(),
-                                ArticleListClient.PAGE_SIZE_PARAM, PAGE_SIZE,
                                 ArticleListClient.PAGE_PARAM, i,
                                 ArticleListClient.SORT_PARAM, ArticleListClient.SortBy.title.name())).
                         assertThat().statusCode(200).extract().as(ArticleListResponse.class);

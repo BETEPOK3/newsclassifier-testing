@@ -26,10 +26,7 @@ public class ArticleListNegative_Test extends AbstractTest {
     }
 
     private List<TestData> wrongSupplier() {
-        return List.of(new TestData("category не существует", Map.of(CATEGORY_PARAM, Integer.MAX_VALUE), HttpStatus.SC_BAD_REQUEST),
-                new TestData("page -1", Map.of(PAGE_PARAM, -1), HttpStatus.SC_BAD_REQUEST),
-                new TestData("page_size -1", Map.of(PAGE_SIZE_PARAM, -1), HttpStatus.SC_BAD_REQUEST),
-                new TestData("page_size igsjfofgisjdfog", Map.of(PAGE_SIZE_PARAM, WRONG_STRING), HttpStatus.SC_UNPROCESSABLE_ENTITY));
+        return List.of(new TestData("page -1", Map.of(PAGE_PARAM, -1), HttpStatus.SC_BAD_REQUEST));
     }
 
     @Test
@@ -47,7 +44,7 @@ public class ArticleListNegative_Test extends AbstractTest {
     }
 
     private List<TestData> allowedSupplier() {
-        return List.of(
+        return List.of(new TestData("category не существует", Map.of(CATEGORY_PARAM, Integer.MAX_VALUE), HttpStatus.SC_OK),
                 new TestData("sort_by некорректный", Map.of(SORT_PARAM, WRONG_STRING), HttpStatus.SC_OK));
     }
 
