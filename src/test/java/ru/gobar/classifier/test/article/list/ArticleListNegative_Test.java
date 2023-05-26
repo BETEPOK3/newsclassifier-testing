@@ -15,7 +15,7 @@ import static ru.gobar.classifier.Endpoints.ARTICLE_LIST_ROOT;
 import static ru.gobar.classifier.api.client.ArticleListClient.*;
 import static ru.gobar.classifier.data.Constants.WRONG_STRING;
 
-@DisplayName("get article list")
+@DisplayName(ARTICLE_LIST_ROOT + " и " + ARTICLE_LIST_INDEX + " - получение списка статей")
 public class ArticleListNegative_Test extends AbstractTest {
 
     private final ArticleListClient clientRoot = new ArticleListClient(ARTICLE_LIST_ROOT);

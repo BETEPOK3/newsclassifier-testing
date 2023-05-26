@@ -15,7 +15,7 @@ import java.util.HashSet;
 
 import static ru.gobar.classifier.Endpoints.ARTICLE_CREATE;
 
-@DisplayName(ARTICLE_CREATE)
+@DisplayName(ARTICLE_CREATE + " - создание статей")
 public class ArticleCreatePositive_Test extends AbstractTest {
 
     @Test

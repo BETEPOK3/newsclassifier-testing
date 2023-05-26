@@ -14,7 +14,6 @@ import ru.gobar.classifier.api.client.ArticleDeleteClient;
 import ru.gobar.classifier.dao.CategoryDao;
 import ru.gobar.classifier.dao.PostgresCategoryDao;
 import ru.gobar.classifier.data.RandomArticleGenerator;
-import ru.gobar.classifier.database.Databaser;
 import ru.gobar.classifier.database.PostgresContext;
 import ru.gobar.classifier.model.Article;
 import ru.gobar.classifier.model.Category;
@@ -27,7 +26,7 @@ import java.util.concurrent.Callable;
 
 import static ru.gobar.classifier.Endpoints.ARTICLE_DELETE;
 
-@DisplayName(ARTICLE_DELETE)
+@DisplayName(ARTICLE_DELETE + " - удаление статей")
 public class ArticleDeletePositive_Test extends AbstractTest {
 
     private final ArticleDeleteClient client = new ArticleDeleteClient();

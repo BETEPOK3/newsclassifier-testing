@@ -23,7 +23,7 @@ import java.util.*;
 import static ru.gobar.classifier.Endpoints.ARTICLE_LIST_INDEX;
 import static ru.gobar.classifier.Endpoints.ARTICLE_LIST_ROOT;
 
-@DisplayName("get article list")
+@DisplayName(ARTICLE_LIST_ROOT + " и " + ARTICLE_LIST_INDEX + " - получение списка статей")
 public class ArticleListPositive_Test extends AbstractTest {
 
     private final int PAGE_SIZE = 2;

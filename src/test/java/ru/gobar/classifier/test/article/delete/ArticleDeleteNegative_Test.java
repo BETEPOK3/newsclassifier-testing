@@ -15,7 +15,7 @@ import java.util.List;
 import static ru.gobar.classifier.Endpoints.ARTICLE_DELETE;
 import static ru.gobar.classifier.data.Constants.WRONG_STRING;
 
-@DisplayName(ARTICLE_DELETE)
+@DisplayName(ARTICLE_DELETE + " - удаление статей")
 public class ArticleDeleteNegative_Test extends AbstractTest {
 
     private final ArticleDeleteClient client = new ArticleDeleteClient();

@@ -18,7 +18,7 @@ import java.util.List;
 import static ru.gobar.classifier.Endpoints.ARTICLE_CREATE;
 import static ru.gobar.classifier.data.Constants.WRONG_STRING;
 
-@DisplayName(ARTICLE_CREATE)
+@DisplayName(ARTICLE_CREATE + " - создание статей")
 public class ArticleCreateNegative_Test extends AbstractTest {
 
     private final ArticleCreateRequest requestFull = ArticleCreateRequest.instance(
