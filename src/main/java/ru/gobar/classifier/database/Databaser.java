@@ -1,13 +1,8 @@
 package ru.gobar.classifier.database;
 
-import org.awaitility.Awaitility;
-import org.hamcrest.Matchers;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import ru.gobar.classifier.PropertyReader;
-import ru.gobar.classifier.model.Category;
-
-import java.util.concurrent.Callable;
 
 public class Databaser {
 
@@ -22,12 +17,7 @@ public class Databaser {
         return record.get("article_id", Integer.class);
     }
 
-    public static Category getCategoryById(int id) {
-        Callable<Record> catSupplier = () ->
-                db.fetchOne(PropertyReader.getQuery("getCategoryById"), id);
-        Record record = Awaitility.await("Поиск категории " + id).until(catSupplier, Matchers.notNullValue());
-
-        return new Category(id, record.get("category_name", String.class));
+    public static int getArticleCount() {
+        return db.fetchOne(PropertyReader.getQuery("getArticleCount")).get("count", Integer.class);
     }
-
 }

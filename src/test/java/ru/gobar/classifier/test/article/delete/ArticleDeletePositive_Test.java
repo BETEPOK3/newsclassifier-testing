@@ -11,6 +11,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.gobar.classifier.PropertyReader;
 import ru.gobar.classifier.api.client.ArticleDeleteClient;
+import ru.gobar.classifier.dao.CategoryDao;
+import ru.gobar.classifier.dao.PostgresCategoryDao;
 import ru.gobar.classifier.data.RandomArticleGenerator;
 import ru.gobar.classifier.database.Databaser;
 import ru.gobar.classifier.database.PostgresContext;
@@ -29,6 +31,7 @@ import static ru.gobar.classifier.Endpoints.ARTICLE_DELETE;
 public class ArticleDeletePositive_Test extends AbstractTest {
 
     private final ArticleDeleteClient client = new ArticleDeleteClient();
+    private final CategoryDao categoryDao = new PostgresCategoryDao();
     private Article article;
 
     @BeforeAll
@@ -47,7 +50,7 @@ public class ArticleDeletePositive_Test extends AbstractTest {
 
     @Step("Не удаление категорий из справочника")
     private void assertCategoriesPersist(Set<Category> categories) {
-        categories.forEach(c -> AssertUtil.assertEquals(c, Databaser.getCategoryById(c.getId())));
+        categories.forEach(c -> AssertUtil.assertEquals(c, categoryDao.getById(c.getId())));
     }
 
     @Step("Успешное удаление данных из таблицы article")

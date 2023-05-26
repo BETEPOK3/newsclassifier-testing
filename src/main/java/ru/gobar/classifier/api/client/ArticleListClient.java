@@ -6,14 +6,17 @@ import io.restassured.response.ValidatableResponse;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static ru.gobar.classifier.Endpoints.ARTICLE_GET;
 
-public class ArticleGetClient extends AbstractClient {
+public class ArticleListClient extends AbstractClient{
 
-    public static final String PARAM = "article_id";
+    public static final String CATEGORY_PARAM = "category";
+    public static final String SORT_PARAM = "sort_by";
+    public static final String TEXT_PARAM = "search_text";
+    public static final String PAGE_PARAM = "page";
+    public static final String PAGE_SIZE_PARAM = "page_size";
 
-    public ArticleGetClient() {
-        super(ARTICLE_GET);
+    public ArticleListClient(String endpoint) {
+        super(endpoint);
     }
 
     private ValidatableResponse sendGet(Map<String, ?> params) {
@@ -28,7 +31,9 @@ public class ArticleGetClient extends AbstractClient {
         return sendGet(params);
     }
 
-    public ValidatableResponse get(Integer id) {
-        return sendGet(Map.of(PARAM, id));
+    public enum SortBy {
+        title,
+        author,
+        date
     }
 }

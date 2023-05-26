@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import ru.gobar.classifier.model.Article;
+import ru.gobar.classifier.model.Category;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -49,6 +51,7 @@ public class ArticleGetResponse {
     @Accessors(chain = true)
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @AllArgsConstructor
+    @NoArgsConstructor
     private static class Category {
         @JsonProperty("category_id")
         private int id;
