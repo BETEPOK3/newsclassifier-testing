@@ -33,8 +33,8 @@ public class ArticleCreateNegative_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("/article/create Неуспешное создание статьи с отсутствующими обязательными параметрами")
+    @TmsLink("https://www.hostedredmine.com/attachments/989189")
+    @DisplayName("[T1] /article/create Неуспешное создание статьи с отсутствующими обязательными параметрами")
     void missAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
         missSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.remove(data.keys, data.request)).
@@ -59,8 +59,8 @@ public class ArticleCreateNegative_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("/article/create Неуспешное создание статьи с некорректными параметрами")
+    @TmsLink("https://www.hostedredmine.com/attachments/989188")
+    @DisplayName("[T2] /article/create Неуспешное создание статьи с некорректными параметрами")
     void wrongAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
         wrongSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.replace(data.keys, data.request, data.value)).

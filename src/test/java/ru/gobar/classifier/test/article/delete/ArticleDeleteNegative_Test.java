@@ -34,8 +34,8 @@ public class ArticleDeleteNegative_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("/article Не успешное удаление статьи - некорректный id")
+    @TmsLink("https://www.hostedredmine.com/attachments/989495")
+    @DisplayName("[T6] /article Не успешное удаление статьи - некорректный id")
     void suckDelete() {
         AllureStepUtil stepper = new AllureStepUtil();
         supplierWrong().forEach(data -> stepper.runStep(data.name, () -> client.delete(data.param).assertThat().statusCode(data.status)));
@@ -49,8 +49,8 @@ public class ArticleDeleteNegative_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("/article Не успешное удаление статьи - несуществующие id")
+    @TmsLink("https://www.hostedredmine.com/attachments/989494")
+    @DisplayName("[T7] /article Не успешное удаление статьи - несуществующие id")
     void semiSuckDelete() {
         AllureStepUtil stepper = new AllureStepUtil();
         supplierSemiWrong().forEach(data -> stepper.runStep(data.name, () -> client.delete(data.param).assertThat().statusCode(data.status)));

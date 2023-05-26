@@ -19,8 +19,8 @@ import static ru.gobar.classifier.Endpoints.ARTICLE_CREATE;
 public class ArticleCreatePositive_Test extends AbstractTest {
 
     @Test
-    @TmsLink("...")
-    @DisplayName("/article/create Успешное создание статьи с базовыми параметрами")
+    @TmsLink("https://www.hostedredmine.com/attachments/989482")
+    @DisplayName("[T3] /article/create Успешное создание статьи с базовыми параметрами")
     void testBase() {
         Article art = RandomArticleGenerator.randomArticleBase();
         art.setKeywords(null);
@@ -32,8 +32,8 @@ public class ArticleCreatePositive_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("/article/create Успешное создание статьи со всеми параметрами")
+    @TmsLink("https://www.hostedredmine.com/attachments/989483")
+    @DisplayName("[T4] /article/create Успешное создание статьи со всеми параметрами")
     void testFull() {
         Article art = RandomArticleGenerator.randomArticleWithAllFields();
         ArticleCreationUtil.createArticle(art);

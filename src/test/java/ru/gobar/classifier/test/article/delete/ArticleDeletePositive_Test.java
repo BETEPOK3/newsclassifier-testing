@@ -39,8 +39,8 @@ public class ArticleDeletePositive_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("/article Успешное удаление статьи")
+    @TmsLink("https://www.hostedredmine.com/attachments/989496")
+    @DisplayName("[T5] /article Успешное удаление статьи")
     void suckDelete() {
         client.delete(article.getId());
         assertArticleDelete(article.getId());

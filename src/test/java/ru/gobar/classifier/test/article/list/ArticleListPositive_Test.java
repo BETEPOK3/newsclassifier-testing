@@ -38,14 +38,14 @@ public class ArticleListPositive_Test extends AbstractTest {
     }
 
     private Map<String, Comparator<Article>> sorts() {
-        return Map.of(ArticleListClient.SortBy.date.name(), Comparator.comparing(Article::getDate),
+        return Map.of(ArticleListClient.SortBy.date.name(), Comparator.comparing(Article::getDate).reversed(),
                 ArticleListClient.SortBy.title.name(), Comparator.comparing(Article::getTitle),
                 ArticleListClient.SortBy.author.name(), new Article.AuthorComparator());
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("Получение статей с фильтрацией")
+    @TmsLink("https://www.hostedredmine.com/attachments/989489")
+    @DisplayName("[T10] Получение статей с фильтрацией")
     void sortTest() {
         AllureStepUtil outer = new AllureStepUtil();
         clients().forEach(c -> outer.runStep(c.ENDPOINT, () -> {
@@ -79,8 +79,8 @@ public class ArticleListPositive_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("Получение статей по категории")
+    @TmsLink("https://www.hostedredmine.com/attachments/989487")
+    @DisplayName("[T11] Получение статей по категории")
     void catTest() {
         AllureStepUtil stepUtil = new AllureStepUtil();
         clients().forEach(c -> stepUtil.runStep(c.ENDPOINT, () -> {
@@ -103,8 +103,8 @@ public class ArticleListPositive_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("Получение статей по всем категориям")
+    @TmsLink("https://www.hostedredmine.com/attachments/989488")
+    @DisplayName("[T12] Получение статей по всем категориям")
     void allCatTest() {
         AllureStepUtil stepUtil = new AllureStepUtil();
         clients().forEach(c -> stepUtil.runStep(c.ENDPOINT, () -> {
@@ -118,8 +118,8 @@ public class ArticleListPositive_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("Получение статей по совпадению в названии")
+    @TmsLink("https://www.hostedredmine.com/attachments/989504")
+    @DisplayName("[T13] Получение статей по совпадению в названии")
     void titleTextTest() {
         AllureStepUtil stepUtil = new AllureStepUtil();
         clients().forEach(c -> stepUtil.runStep(c.ENDPOINT, () -> {
@@ -142,8 +142,8 @@ public class ArticleListPositive_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("Получение статей по страницам")
+    @TmsLink("https://www.hostedredmine.com/attachments/989503")
+    @DisplayName("[14] Получение статей по страницам")
     void pageTest() {
         AllureStepUtil stepUtil = new AllureStepUtil();
         clients().forEach(c -> stepUtil.runStep(c.ENDPOINT, () -> {
@@ -187,8 +187,8 @@ public class ArticleListPositive_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("Получение статей по страницам")
+    @TmsLink("https://www.hostedredmine.com/attachments/989502")
+    @DisplayName("[T15] Получение статей без параметров")
     void nonParamsTest() {
         AllureStepUtil stepUtil = new AllureStepUtil();
         clients().forEach(c -> stepUtil.runStep(c.ENDPOINT, () -> c.get(new HashMap<>()).

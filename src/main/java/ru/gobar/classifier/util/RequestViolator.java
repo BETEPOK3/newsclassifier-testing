@@ -1,6 +1,5 @@
 package ru.gobar.classifier.util;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -8,7 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class RequestViolator {
 
-    private static ObjectMapper objectMapper;
+    private static final ObjectMapper objectMapper;
 
     static {
         objectMapper = new ObjectMapper();

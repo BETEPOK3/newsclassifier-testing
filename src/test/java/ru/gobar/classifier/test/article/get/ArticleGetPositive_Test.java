@@ -29,8 +29,8 @@ public class ArticleGetPositive_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("/article Успешное получение статьи")
+    @TmsLink("https://www.hostedredmine.com/attachments/989490")
+    @DisplayName("[T9] /article Успешное получение статьи")
     void testBase() {
         AllureStepUtil stepper = new AllureStepUtil();
         getArticles().forEach((k, a) -> stepper.runStep(k, () -> {

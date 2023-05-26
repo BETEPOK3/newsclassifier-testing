@@ -7,10 +7,7 @@ import ru.gobar.classifier.model.Article;
 import ru.gobar.classifier.model.Category;
 
 import java.time.ZoneId;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class RandomArticleGenerator {
 
@@ -31,8 +28,8 @@ public class RandomArticleGenerator {
         }
 
         return new Article()
-                .setTitle(faker.chuckNorris().fact())
-                .setAuthor(faker.lordOfTheRings().character())
+                .setTitle(UUID.randomUUID().toString())
+                .setAuthor(UUID.randomUUID().toString())
                 .setKeywords(keywords)
                 .setDate(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                 .setText(faker.regexify("(([a-zA-Zа-яА-ЯёЁ0-9]{10})[ ]){"+ random.nextInt(60) + "}\\."))
@@ -49,7 +46,7 @@ public class RandomArticleGenerator {
         }
 
         return new Article()
-                .setTitle(faker.chuckNorris().fact())
+                .setTitle(UUID.randomUUID().toString())
                 .setDate(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                 .setText(faker.regexify("(([a-zA-Zа-яА-ЯёЁ0-9]{10})[ ]){"+ random.nextInt(60) + "}\\."))
                 .setCategories(categories)

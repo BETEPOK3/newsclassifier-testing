@@ -39,8 +39,8 @@ public class ArticleGetNegative_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("/article Неуспешное получение статьи - некорректный параметр")
+    @TmsLink("https://www.hostedredmine.com/attachments/989493")
+    @DisplayName("[T8] /article Неуспешное получение статьи - некорректный параметр")
     void testBase() {
         AllureStepUtil stepper = new AllureStepUtil();
         supplier().forEach(data -> stepper.runStep(data.name, () -> client.get(data.params).assertThat().statusCode(data.status)));

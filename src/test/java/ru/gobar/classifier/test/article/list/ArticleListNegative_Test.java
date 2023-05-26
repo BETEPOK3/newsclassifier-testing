@@ -30,8 +30,8 @@ public class ArticleListNegative_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("Запрос списка статей с некорректными параметрами (400)")
+    @TmsLink("https://www.hostedredmine.com/attachments/989501")
+    @DisplayName("[16] Запрос списка статей с некорректными параметрами (400)")
     void wrongTest() {
         AllureStepUtil stepUtil = new AllureStepUtil();
         clients().forEach(c -> stepUtil.runStep(c.ENDPOINT, () -> {
@@ -49,8 +49,8 @@ public class ArticleListNegative_Test extends AbstractTest {
     }
 
     @Test
-    @TmsLink("...")
-    @DisplayName("Запрос списка статей с некорректными параметрами (200)")
+    @TmsLink("https://www.hostedredmine.com/attachments/989499")
+    @DisplayName("[17] Запрос списка статей с некорректными параметрами (200)")
     void allowedTest() {
         AllureStepUtil stepUtil = new AllureStepUtil();
         clients().forEach(c -> stepUtil.runStep(c.ENDPOINT, () -> {
