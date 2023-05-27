@@ -67,7 +67,7 @@ public class ArticleUpdateNegative_Test extends AbstractTest {
     void missAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
         missSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.remove(data.keys, data.request), target).
-                assertThat().statusCode(HttpStatus.SC_BAD_REQUEST)));
+                assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)));
         stepper.check();
     }
 
@@ -94,7 +94,7 @@ public class ArticleUpdateNegative_Test extends AbstractTest {
     void wrongAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
         wrongSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.replace(data.keys, data.request, data.value), target).
-                assertThat().statusCode(HttpStatus.SC_BAD_REQUEST)));
+                assertThat().statusCode(data.status)));
         stepper.check();
     }
 
