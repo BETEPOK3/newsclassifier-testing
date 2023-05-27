@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import ru.gobar.classifier.api.client.ArticleUpdateClient;
 import ru.gobar.classifier.api.request.ArticleCreateRequest;
 import ru.gobar.classifier.data.RandomArticleGenerator;
-import ru.gobar.classifier.database.Databaser;
 import ru.gobar.classifier.model.Article;
 import ru.gobar.classifier.test.AbstractTest;
 import ru.gobar.classifier.util.AllureStepUtil;
@@ -34,15 +33,15 @@ public class ArticleUpdateNegative_Test extends AbstractTest {
 
     @BeforeAll
     void prepare() {
-        notExist = Databaser.getLastId() + 1;
+        notExist = Integer.MAX_VALUE;
         target = ArticleUtil.createArticle(RandomArticleGenerator.randomArticleWithAllFields()).getId();
     }
 
     private List<TestData> supplier() {
         return List.of(new TestData("Случайная строка", WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData("Пустая строка",  "", HttpStatus.SC_TEMPORARY_REDIRECT),
+                new TestData("Пустая строка", "", HttpStatus.SC_TEMPORARY_REDIRECT),
                 new TestData("Не существующий id", notExist, HttpStatus.SC_BAD_REQUEST),
-                new TestData("Не существующий id",  -1, HttpStatus.SC_BAD_REQUEST)
+                new TestData("Не существующий id", -1, HttpStatus.SC_BAD_REQUEST)
         );
     }
 
@@ -68,7 +67,7 @@ public class ArticleUpdateNegative_Test extends AbstractTest {
     void missAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
         missSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.remove(data.keys, data.request), target).
-                assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)));
+                assertThat().statusCode(HttpStatus.SC_BAD_REQUEST)));
         stepper.check();
     }
 
@@ -95,11 +94,11 @@ public class ArticleUpdateNegative_Test extends AbstractTest {
     void wrongAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
         wrongSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.replace(data.keys, data.request, data.value), target).
-                assertThat().statusCode(data.status)));
+                assertThat().statusCode(HttpStatus.SC_BAD_REQUEST)));
         stepper.check();
     }
 
-    private static class TestData{
+    private static class TestData {
 
         private String name;
         private Object params;

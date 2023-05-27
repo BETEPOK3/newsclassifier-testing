@@ -21,21 +21,9 @@ public class RequestViolator {
         return result;
     }
 
-    public static ObjectNode replace(String key, String path, Object target, Object value) {
-        ObjectNode result = objectMapper.valueToTree(target);
-        ((ObjectNode) result.at(path)).replace(key, objectMapper.valueToTree(value));
-        return result;
-    }
-
     public static ObjectNode remove(String key, Object target) {
         ObjectNode result = objectMapper.valueToTree(target);
         result.remove(key);
-        return result;
-    }
-
-    public static ObjectNode remove(String key, String path, Object target) {
-        ObjectNode result = objectMapper.valueToTree(target);
-        ((ObjectNode) result.at(path)).remove(key);
         return result;
     }
 }

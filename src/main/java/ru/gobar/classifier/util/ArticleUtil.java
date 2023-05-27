@@ -20,7 +20,7 @@ public class ArticleUtil {
     @Step("Загрузка статьи")
     public static Article createArticle(Article article) {
         article.setId(createClient.post(ArticleCreateRequest.instance(article)).
-                assertThat().statusCode(HttpStatus.SC_OK).extract().as(Integer.class));
+                assertThat().statusCode(HttpStatus.SC_OK).extract().path("id"));
 
         new PostgresArticleDao().getById(article.getId()).getCategories().forEach(oc -> {
             article.getCategories().forEach(ic -> {
