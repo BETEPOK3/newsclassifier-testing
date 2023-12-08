@@ -7,7 +7,4 @@ public interface CategoryDao {
     Category getById(int id);
 
     Category getByName(String name);
-
-    Category persist(Category category);
-
 }

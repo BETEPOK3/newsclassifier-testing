@@ -8,17 +8,19 @@ import ru.gobar.classifier.api.client.ArticleUpdateClient;
 import ru.gobar.classifier.dao.PostgresArticleDao;
 import ru.gobar.classifier.data.RandomArticleGenerator;
 import ru.gobar.classifier.model.Article;
+import ru.gobar.classifier.model.Category;
 import ru.gobar.classifier.test.AbstractTest;
 import ru.gobar.classifier.util.AllureStepUtil;
 import ru.gobar.classifier.util.ArticleUtil;
 import ru.gobar.classifier.util.AssertUtil;
 
 import java.util.Map;
+import java.util.Set;
 
 import static ru.gobar.classifier.Endpoints.ARTICLE_UPDATE;
 
 @DisplayName(ARTICLE_UPDATE + " - обновление статьи")
-public class ArticleUpdatePositive_Test extends AbstractTest {
+public class ArticleUpdatePositiveTest extends AbstractTest {
 
     private final ArticleUpdateClient client = new ArticleUpdateClient();
 
@@ -48,6 +50,7 @@ public class ArticleUpdatePositive_Test extends AbstractTest {
         Article art = RandomArticleGenerator.randomArticleBase();
         ArticleUtil.createArticle(art);
         Article newArt = RandomArticleGenerator.randomArticleBase();
+        newArt.setCategories(Set.of(new Category().setId(Category.RealCats.SPORT.getId()).setName(Category.RealCats.SPORT.getName())));
 
         ArticleUtil.updateArticle(newArt, art.getId());
 
@@ -62,6 +65,7 @@ public class ArticleUpdatePositive_Test extends AbstractTest {
         Article art = RandomArticleGenerator.randomArticleWithAllFields();
         ArticleUtil.createArticle(art);
         Article newArt = RandomArticleGenerator.randomArticleWithAllFields();
+        newArt.setCategories(Set.of(new Category().setId(Category.RealCats.SPORT.getId()).setName(Category.RealCats.SPORT.getName())));
 
         ArticleUtil.updateArticle(newArt, art.getId());
 

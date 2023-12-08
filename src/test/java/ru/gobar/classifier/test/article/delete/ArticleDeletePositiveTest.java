@@ -27,7 +27,7 @@ import java.util.concurrent.Callable;
 import static ru.gobar.classifier.Endpoints.ARTICLE_DELETE;
 
 @DisplayName(ARTICLE_DELETE + " - удаление статей")
-public class ArticleDeletePositive_Test extends AbstractTest {
+public class ArticleDeletePositiveTest extends AbstractTest {
 
     private final ArticleDeleteClient client = new ArticleDeleteClient();
     private final CategoryDao categoryDao = new PostgresCategoryDao();

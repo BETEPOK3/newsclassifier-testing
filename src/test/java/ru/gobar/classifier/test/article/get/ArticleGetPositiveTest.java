@@ -17,7 +17,7 @@ import java.util.Map;
 import static ru.gobar.classifier.Endpoints.ARTICLE_GET;
 
 @DisplayName(ARTICLE_GET + " - получение статьи")
-public class ArticleGetPositive_Test extends AbstractTest {
+public class ArticleGetPositiveTest extends AbstractTest {
 
     private final ArticleGetClient client = new ArticleGetClient();
 

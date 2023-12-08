@@ -16,4 +16,5 @@ public class Endpoints {
     public static final String ARTICLE_GET = "/article";
     public static final String ARTICLE_LIST_ROOT = "/";
     public static final String ARTICLE_LIST_INDEX = "/index";
+    public static final String PREDICT = "/article/predict";
 }

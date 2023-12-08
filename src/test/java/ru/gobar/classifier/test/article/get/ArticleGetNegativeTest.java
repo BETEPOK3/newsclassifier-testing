@@ -17,7 +17,7 @@ import static ru.gobar.classifier.Endpoints.ARTICLE_GET;
 import static ru.gobar.classifier.data.Constants.WRONG_STRING;
 
 @DisplayName(ARTICLE_GET + " - получение статьи")
-public class ArticleGetNegative_Test extends AbstractTest {
+public class ArticleGetNegativeTest extends AbstractTest {
 
     private final ArticleGetClient client = new ArticleGetClient();
 

@@ -19,11 +19,9 @@ public class RandomArticleGenerator {
             keywords.add(faker.food().ingredient());
         }
 
-        int c = random.nextInt(3) + 1;
         Set<Category> categories = new HashSet<>();
-        for (int i = 0; i < c; ++i) {
-            categories.add(new Category().setName(UUID.randomUUID().toString()));
-        }
+        categories.add(new Category().setName(Category.RealCats.ANIME.getName()));
+        categories.add(new Category().setName(Category.RealCats.GAMES.getName()));
 
         return new Article()
                 .setTitle(UUID.randomUUID().toString())
@@ -37,15 +35,12 @@ public class RandomArticleGenerator {
     public static Article randomArticleBase() {
         Random random = new Random();
 
-        int c = random.nextInt(3) + 1;
         Set<Category> categories = new HashSet<>();
-        for (int i = 0; i < c; ++i) {
-            categories.add(new Category().setName(UUID.randomUUID().toString()));
-        }
+        categories.add(new Category().setName(Category.RealCats.ANIME.getName()));
 
         return new Article()
                 .setTitle(UUID.randomUUID().toString())
-                .setDate(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                .setAuthor(UUID.randomUUID().toString())
                 .setText(faker.regexify("(([a-zA-Zа-яА-ЯёЁ0-9]{10})[ ]){"+ random.nextInt(60) + "}\\."))
                 .setCategories(categories)
                 .setKeywords(new HashSet<>());

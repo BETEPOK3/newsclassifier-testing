@@ -19,7 +19,7 @@ import static ru.gobar.classifier.Endpoints.ARTICLE_CREATE;
 import static ru.gobar.classifier.data.Constants.WRONG_STRING;
 
 @DisplayName(ARTICLE_CREATE + " - создание статей")
-public class ArticleCreateNegative_Test extends AbstractTest {
+public class ArticleCreateNegativeTest extends AbstractTest {
 
     private final ArticleCreateRequest requestFull = ArticleCreateRequest.instance(
             RandomArticleGenerator.randomArticleWithAllFields());
@@ -27,7 +27,6 @@ public class ArticleCreateNegative_Test extends AbstractTest {
 
     private List<TestData> missSupplier() {
         return List.of(new TestData(requestFull, Article.Fields.article_title.name()),
-                new TestData(requestFull, Article.Fields.article_date.name()),
                 new TestData(requestFull, Article.Fields.article_text.name()),
                 new TestData(requestFull, Article.Fields.article_categories.name()));
     }
@@ -45,7 +44,6 @@ public class ArticleCreateNegative_Test extends AbstractTest {
     private List<TestData> wrongSupplier() {
         return List.of(new TestData(requestFull, Article.Fields.article_title.name(), null, HttpStatus.SC_UNPROCESSABLE_ENTITY),
                 new TestData(requestFull, Article.Fields.article_title.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_date.name(), null, HttpStatus.SC_UNPROCESSABLE_ENTITY),
                 new TestData(requestFull, Article.Fields.article_date.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY),
                 new TestData(requestFull, Article.Fields.article_date.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
                 new TestData(requestFull, Article.Fields.article_text.name(), null, HttpStatus.SC_UNPROCESSABLE_ENTITY),

@@ -29,6 +29,7 @@ public class ArticleCreateRequest {
     public Set<String> keywords;
     @JsonProperty("article_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonInclude
     private LocalDate date;
     @JsonProperty("article_text")
     private String text;

@@ -16,7 +16,7 @@ import static ru.gobar.classifier.api.client.ArticleListClient.*;
 import static ru.gobar.classifier.data.Constants.WRONG_STRING;
 
 @DisplayName(ARTICLE_LIST_ROOT + " и " + ARTICLE_LIST_INDEX + " - получение списка статей")
-public class ArticleListNegative_Test extends AbstractTest {
+public class ArticleListNegativeTest extends AbstractTest {
 
     private final ArticleListClient clientRoot = new ArticleListClient(ARTICLE_LIST_ROOT);
     private final ArticleListClient clientIndex = new ArticleListClient(ARTICLE_LIST_INDEX);
@@ -45,6 +45,7 @@ public class ArticleListNegative_Test extends AbstractTest {
 
     private List<TestData> allowedSupplier() {
         return List.of(new TestData("category не существует", Map.of(CATEGORY_PARAM, Integer.MAX_VALUE), HttpStatus.SC_OK),
+                new TestData("category в виде текста", Map.of(CATEGORY_PARAM, "somestr"), HttpStatus.SC_OK),
                 new TestData("sort_by некорректный", Map.of(SORT_PARAM, WRONG_STRING), HttpStatus.SC_OK));
     }
 

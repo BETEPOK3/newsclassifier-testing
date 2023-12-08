@@ -11,12 +11,13 @@ import ru.gobar.classifier.util.ArticleUtil;
 import ru.gobar.classifier.util.AssertUtil;
 
 
+import java.time.LocalDate;
 import java.util.HashSet;
 
 import static ru.gobar.classifier.Endpoints.ARTICLE_CREATE;
 
 @DisplayName(ARTICLE_CREATE + " - создание статей")
-public class ArticleCreatePositive_Test extends AbstractTest {
+public class ArticleCreatePositiveTest extends AbstractTest {
 
     @Test
     @TmsLink("https://www.hostedredmine.com/attachments/989482")
@@ -28,6 +29,7 @@ public class ArticleCreatePositive_Test extends AbstractTest {
         art.setKeywords(new HashSet<>());
 
         Article actual = new PostgresArticleDao().getById(art.getId());
+        art.setDate(LocalDate.now());
         AssertUtil.assertEquals(art, actual);
     }
 

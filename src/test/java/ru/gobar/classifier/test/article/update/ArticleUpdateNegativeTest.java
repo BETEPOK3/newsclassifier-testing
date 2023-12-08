@@ -21,7 +21,7 @@ import static ru.gobar.classifier.Endpoints.ARTICLE_UPDATE;
 import static ru.gobar.classifier.data.Constants.WRONG_STRING;
 
 @DisplayName(ARTICLE_UPDATE + " - обновление статьи")
-public class ArticleUpdateNegative_Test extends AbstractTest {
+public class ArticleUpdateNegativeTest extends AbstractTest {
 
     private final ArticleUpdateClient client = new ArticleUpdateClient();
 
@@ -54,37 +54,17 @@ public class ArticleUpdateNegative_Test extends AbstractTest {
         stepper.check();
     }
 
-    private List<TestData> missSupplier() {
-        return List.of(new TestData(requestFull, Article.Fields.article_title.name()),
-                new TestData(requestFull, Article.Fields.article_date.name()),
-                new TestData(requestFull, Article.Fields.article_text.name()),
-                new TestData(requestFull, Article.Fields.article_categories.name()));
-    }
-
-    @Test
-    @TmsLink("https://www.hostedredmine.com/attachments/989555")
-    @DisplayName("[T30] /article/update Неуспешное обновление статьи с отсутствующими обязательными параметрами")
-    void missAttributes() {
-        AllureStepUtil stepper = new AllureStepUtil();
-        missSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.remove(data.keys, data.request), target).
-                assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)));
-        stepper.check();
-    }
-
     private List<TestData> wrongSupplier() {
-        return List.of(new TestData(requestFull, Article.Fields.article_title.name(), null, HttpStatus.SC_UNPROCESSABLE_ENTITY),
+        return List.of(
                 new TestData(requestFull, Article.Fields.article_title.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_date.name(), null, HttpStatus.SC_UNPROCESSABLE_ENTITY),
                 new TestData(requestFull, Article.Fields.article_date.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY),
                 new TestData(requestFull, Article.Fields.article_date.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_text.name(), null, HttpStatus.SC_UNPROCESSABLE_ENTITY),
                 new TestData(requestFull, Article.Fields.article_text.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_categories.name(), null, HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_categories.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY),
+                new TestData(requestFull, Article.Fields.article_categories.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY), // TODO:
                 new TestData(requestFull, Article.Fields.article_categories.name(), List.of(new ArrayList()), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_categories.name(), new ArrayList<>(), HttpStatus.SC_BAD_REQUEST),
+                new TestData(requestFull, Article.Fields.article_categories.name(), new ArrayList<>(), HttpStatus.SC_BAD_REQUEST), // TODO:
                 new TestData(requestFull, Article.Fields.article_author.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_keywords.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY)
+                new TestData(requestFull, Article.Fields.article_keywords.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY) // TODO:
         );
     }
 

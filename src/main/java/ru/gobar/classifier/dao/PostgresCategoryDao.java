@@ -28,13 +28,4 @@ public class PostgresCategoryDao implements CategoryDao{
 
         return new Category(record.get("category_id", Integer.class), name);
     }
-
-    @Override
-    public Category persist(Category category) {
-        Callable<Integer> catInserter = () ->
-                PostgresContext.getInstance().execute(PropertyReader.getQuery("sendCategory"), category.getName());
-        Awaitility.await("Загрузка категории " + category.getName()).until(catInserter, Matchers.greaterThan(0));
-
-        return this.getByName(category.getName());
-    }
 }

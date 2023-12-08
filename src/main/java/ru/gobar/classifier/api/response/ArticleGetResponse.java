@@ -12,6 +12,7 @@ import ru.gobar.classifier.model.Article;
 import ru.gobar.classifier.model.Category;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,13 +47,27 @@ public class ArticleGetResponse {
                 .setCategories(article.getCategories().stream().map(Category::new).collect(Collectors.toSet()));
     }
 
+    public static class AuthorGetResponseComparator implements Comparator<ArticleGetResponse> {
+        @Override
+        public int compare(ArticleGetResponse a, ArticleGetResponse b) {
+            if (a.getAuthor() == null) {
+                return 1;
+            }
+            if (b.getAuthor() == null) {
+                return -1;
+            }
+
+            return a.getAuthor().compareTo(b.getAuthor());
+        }
+    }
+
     @Getter
     @Setter
     @Accessors(chain = true)
     @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @AllArgsConstructor
     @NoArgsConstructor
-    private static class Category {
+    public static class Category {
         @JsonProperty("category_id")
         private int id;
         @JsonProperty("category_name")

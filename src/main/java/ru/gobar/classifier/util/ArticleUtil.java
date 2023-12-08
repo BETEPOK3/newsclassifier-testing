@@ -11,6 +11,8 @@ import ru.gobar.classifier.api.response.ArticleGetResponse;
 import ru.gobar.classifier.dao.PostgresArticleDao;
 import ru.gobar.classifier.model.Article;
 
+import java.time.LocalDate;
+
 public class ArticleUtil {
 
     private static final ArticleCreateClient createClient = new ArticleCreateClient();
@@ -30,6 +32,9 @@ public class ArticleUtil {
             });
         });
 
+        if (article.getDate() == null) {
+            article.setDate(LocalDate.now());
+        }
         return article;
     }
 
@@ -48,6 +53,9 @@ public class ArticleUtil {
             });
         });
 
+        if (article.getDate() == null) {
+            article.setDate(LocalDate.now());
+        }
         AssertUtil.assertEquals(ArticleGetResponse.instance(article), actual);
 
         return article;

@@ -13,7 +13,7 @@ import java.util.Arrays;
 @AllArgsConstructor
 @NoArgsConstructor()
 @FieldNameConstants
-public class Category {
+public class Category implements Comparable<Category> {
 
     @JsonProperty("category_id")
     private int id;
@@ -29,5 +29,24 @@ public class Category {
         Category a = (Category) object;
 
         return this.id == a.id && this.name.equals(a.name);
+    }
+
+    @Override
+    public int compareTo(Category o) {
+        return this.getName().compareTo(o.getName());
+    }
+
+    @Getter
+    @RequiredArgsConstructor
+    public enum RealCats {
+        ANIME(1, "Аниме"),
+        GAMES(2, "Игры"),
+        SPORT(3, "Спорт"),
+        TECH(4, "Технологии"),
+        ECONOMICS(8, "Экономика"),
+        TEST_CAT(52, "TestCat");
+
+        private final int id;
+        private final String name;
     }
 }
