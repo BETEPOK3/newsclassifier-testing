@@ -28,6 +28,7 @@ public class ClassifierPositiveTest extends AbstractTest {
     private final String ANIME_TEXT_PATH = "AnimeText.txt";
     private final String TECH_AND_ECONOMY_TEXT_PATH = "TechAndEconomy.txt";
     private final PredictClient predictClient = new PredictClient();
+    private final String NO_PREDICT_ANSWER = "Категории для данного текста не были распознаны.";
 
     private String animeText;
     private String techAndEconomyText;
@@ -59,6 +60,26 @@ public class ClassifierPositiveTest extends AbstractTest {
                     .as(PredictResponse.class);
 
             c.forEach(cat -> Assertions.assertTrue(response.getCategories123().contains(cat)));
+        }));
+        stepUtil.check();
+    }
+
+    private List<String> getNoAnswerCases() {
+        return List.of("", "Some english string");
+    }
+
+    @Test
+    @TmsLink("https://www.hostedredmine.com/attachments/1111717")
+    @DisplayName("[T34] /article/predict Успешное определение категории статьи")
+    void testNoAnswerPredict() {
+        AllureStepUtil stepUtil = new AllureStepUtil();
+        getNoAnswerCases().forEach(t -> stepUtil.runStep(t, () -> {
+            PredictResponse response = predictClient.post(t)
+                    .statusCode(HttpStatus.SC_OK)
+                    .extract()
+                    .as(PredictResponse.class);
+
+            Assertions.assertTrue(response.getCategories123().contains(NO_PREDICT_ANSWER));
         }));
         stepUtil.check();
     }
