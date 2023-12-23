@@ -27,8 +27,8 @@ public class ArticleDeleteNegativeTest extends AbstractTest {
     }
 
     private List<TestData> supplierWrong() {
-        return List.of(new TestData("Случайная строка", WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData("null", "null", HttpStatus.SC_UNPROCESSABLE_ENTITY),
+        return List.of(new TestData("Случайная строка", WRONG_STRING, HttpStatus.SC_BAD_REQUEST),
+                new TestData("null", "null", HttpStatus.SC_BAD_REQUEST),
                 new TestData("Пустая строка", "", HttpStatus.SC_TEMPORARY_REDIRECT)
         );
     }

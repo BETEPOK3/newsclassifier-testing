@@ -37,23 +37,23 @@ public class ArticleCreateNegativeTest extends AbstractTest {
     void missAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
         missSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.remove(data.keys, data.request)).
-                assertThat().statusCode(HttpStatus.SC_UNPROCESSABLE_ENTITY)));
+                assertThat().statusCode(HttpStatus.SC_BAD_REQUEST)));
         stepper.check();
     }
 
     private List<TestData> wrongSupplier() {
-        return List.of(new TestData(requestFull, Article.Fields.article_title.name(), null, HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_title.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_date.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_date.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_text.name(), null, HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_text.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_categories.name(), null, HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_categories.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_categories.name(), List.of(new ArrayList()), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_categories.name(), new ArrayList<>(), HttpStatus.SC_BAD_REQUEST),
-                new TestData(requestFull, Article.Fields.article_author.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_keywords.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY)
+        return List.of(new TestData(requestFull, Article.Fields.article_title.name(), null),
+                new TestData(requestFull, Article.Fields.article_title.name(), new ArrayList<>()),
+                new TestData(requestFull, Article.Fields.article_date.name(), WRONG_STRING),
+                new TestData(requestFull, Article.Fields.article_date.name(), new ArrayList<>()),
+                new TestData(requestFull, Article.Fields.article_text.name(), null),
+                new TestData(requestFull, Article.Fields.article_text.name(), new ArrayList<>()),
+                new TestData(requestFull, Article.Fields.article_categories.name(), null),
+                new TestData(requestFull, Article.Fields.article_categories.name(), WRONG_STRING),
+                new TestData(requestFull, Article.Fields.article_categories.name(), List.of(new ArrayList())),
+                new TestData(requestFull, Article.Fields.article_categories.name(), new ArrayList<>()),
+                new TestData(requestFull, Article.Fields.article_author.name(), new ArrayList<>()),
+                new TestData(requestFull, Article.Fields.article_keywords.name(), WRONG_STRING)
         );
     }
 
@@ -63,7 +63,7 @@ public class ArticleCreateNegativeTest extends AbstractTest {
     void wrongAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
         wrongSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.replace(data.keys, data.request, data.value)).
-                assertThat().statusCode(data.status)));
+                assertThat().statusCode(HttpStatus.SC_BAD_REQUEST)));
         stepper.check();
     }
 
@@ -72,18 +72,16 @@ public class ArticleCreateNegativeTest extends AbstractTest {
         private final ArticleCreateRequest request;
         private final String keys;
         private Object value;
-        private int status;
 
         public TestData(ArticleCreateRequest request, String keys) {
             this.request = request;
             this.keys = keys;
         }
 
-        public TestData(ArticleCreateRequest request, String keys, Object value, int status) {
+        public TestData(ArticleCreateRequest request, String keys, Object value) {
             this.request = request;
             this.keys = keys;
             this.value = value;
-            this.status = status;
         }
     }
 }

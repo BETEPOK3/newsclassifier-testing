@@ -44,7 +44,7 @@ public class Category implements Comparable<Category> {
         SPORT(3, "Спорт"),
         TECH(4, "Технологии"),
         ECONOMICS(8, "Экономика"),
-        TEST_CAT(52, "TestCat");
+        TEST_CAT(32, "TestCat");
 
         private final int id;
         private final String name;

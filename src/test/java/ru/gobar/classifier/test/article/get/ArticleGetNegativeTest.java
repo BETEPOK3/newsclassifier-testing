@@ -29,12 +29,12 @@ public class ArticleGetNegativeTest extends AbstractTest {
     }
 
     private List<TestData> supplier() {
-        return List.of(new TestData("Случайная строка", Map.of(ArticleGetClient.PARAM, WRONG_STRING), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData("null", Map.of(ArticleGetClient.PARAM, "null"), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData("Пустая строка", Map.of(ArticleGetClient.PARAM, ""), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData("Не существующий id", Map.of(ArticleGetClient.PARAM, notExist), HttpStatus.SC_BAD_REQUEST),
-                new TestData("Не существующий id", Map.of(ArticleGetClient.PARAM, -1), HttpStatus.SC_BAD_REQUEST),
-                new TestData("Без параметра", Map.of(), HttpStatus.SC_UNPROCESSABLE_ENTITY)
+        return List.of(new TestData("Случайная строка", Map.of(ArticleGetClient.PARAM, WRONG_STRING)),
+                new TestData("null", Map.of(ArticleGetClient.PARAM, "null")),
+                new TestData("Пустая строка", Map.of(ArticleGetClient.PARAM, "")),
+                new TestData("Не существующий id", Map.of(ArticleGetClient.PARAM, notExist)),
+                new TestData("Не существующий id", Map.of(ArticleGetClient.PARAM, -1)),
+                new TestData("Без параметра", Map.of())
         );
     }
 
@@ -43,7 +43,7 @@ public class ArticleGetNegativeTest extends AbstractTest {
     @DisplayName("[T8] /article Неуспешное получение статьи - некорректный параметр")
     void testBase() {
         AllureStepUtil stepper = new AllureStepUtil();
-        supplier().forEach(data -> stepper.runStep(data.name, () -> client.get(data.params).assertThat().statusCode(data.status)));
+        supplier().forEach(data -> stepper.runStep(data.name, () -> client.get(data.params).assertThat().statusCode(HttpStatus.SC_BAD_REQUEST)));
         stepper.check();
     }
 
@@ -51,12 +51,10 @@ public class ArticleGetNegativeTest extends AbstractTest {
 
         private final String name;
         private final Map<String, ?> params;
-        private final int status;
 
-        public TestData(String name, Map<String, ?> params, int status) {
+        public TestData(String name, Map<String, ?> params) {
             this.name = name;
             this.params = params;
-            this.status = status;
         }
     }
 

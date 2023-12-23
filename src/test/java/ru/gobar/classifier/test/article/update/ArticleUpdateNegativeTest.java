@@ -38,7 +38,7 @@ public class ArticleUpdateNegativeTest extends AbstractTest {
     }
 
     private List<TestData> supplier() {
-        return List.of(new TestData("Случайная строка", WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY),
+        return List.of(new TestData("Случайная строка", WRONG_STRING, HttpStatus.SC_BAD_REQUEST),
                 new TestData("Пустая строка", "", HttpStatus.SC_TEMPORARY_REDIRECT),
                 new TestData("Не существующий id", notExist, HttpStatus.SC_BAD_REQUEST),
                 new TestData("Не существующий id", -1, HttpStatus.SC_BAD_REQUEST)
@@ -63,8 +63,7 @@ public class ArticleUpdateNegativeTest extends AbstractTest {
                 new TestData(requestFull, Article.Fields.article_categories.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY), // TODO:
                 new TestData(requestFull, Article.Fields.article_categories.name(), List.of(new ArrayList()), HttpStatus.SC_UNPROCESSABLE_ENTITY),
                 new TestData(requestFull, Article.Fields.article_categories.name(), new ArrayList<>(), HttpStatus.SC_BAD_REQUEST), // TODO:
-                new TestData(requestFull, Article.Fields.article_author.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY),
-                new TestData(requestFull, Article.Fields.article_keywords.name(), WRONG_STRING, HttpStatus.SC_UNPROCESSABLE_ENTITY) // TODO:
+                new TestData(requestFull, Article.Fields.article_author.name(), new ArrayList<>(), HttpStatus.SC_UNPROCESSABLE_ENTITY)
         );
     }
 
@@ -74,7 +73,7 @@ public class ArticleUpdateNegativeTest extends AbstractTest {
     void wrongAttributes() {
         AllureStepUtil stepper = new AllureStepUtil();
         wrongSupplier().forEach(data -> stepper.runStep(data.keys, () -> client.post(RequestViolator.replace(data.keys, data.request, data.value), target).
-                assertThat().statusCode(data.status)));
+                assertThat().statusCode(HttpStatus.SC_BAD_REQUEST)));
         stepper.check();
     }
 
